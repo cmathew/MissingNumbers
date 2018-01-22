@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MissingNumbers</string>
+
+    <string name="integer_sequence_input">Enter integers (comma-separated)</string>
+
+    <string name="determine_gaps_button">Find Missing Ranges</string>
 </resources>
