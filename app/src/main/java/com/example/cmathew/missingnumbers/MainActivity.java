@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,24 +23,7 @@ public class MainActivity extends AppCompatActivity {
         gapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<String> missingRanges = new ArrayList<>();
-
-                int[] numbers = getNumberList();
-                int i = 0;
-                int j = 1;
-                while (i < numbers.length && j < numbers.length) {
-                    // detect missing numbers
-                    int difference = numbers[j] - numbers[i];
-                    if (difference == 2) {
-                        missingRanges.add(String.format("%d", numbers[i] + 1));
-                    } else if (difference > 2) {
-                        missingRanges.add(String.format("%d - %d", numbers[i] + 1, numbers[j] - 1));
-                    }
-
-                    i++;
-                    j++;
-                }
-
+                List<String> missingRanges = determineMissingRanges();
                 TextView display = findViewById(R.id.ranges_found_display);
                 String output = TextUtils.join(", ", missingRanges);
                 display.setText(output);
@@ -49,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private int[] getNumberList() {
+    private int[] parseInputNumbers() {
         EditText text = findViewById(R.id.sequence_entry);
         String input = text.getText().toString();
         String[] numberStrings = input.split(",\\s*");
@@ -59,5 +41,27 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return numbers;
+    }
+
+    private List<String> determineMissingRanges() {
+        List<String> missingRanges = new ArrayList<>();
+
+        int[] numbers = parseInputNumbers();
+        int i = 0;
+        int j = 1;
+        while (i < numbers.length && j < numbers.length) {
+            // detect missing numbers
+            int difference = numbers[j] - numbers[i];
+            if (difference == 2) {
+                missingRanges.add(String.format("%d", numbers[i] + 1));
+            } else if (difference > 2) {
+                missingRanges.add(String.format("%d -> %d", numbers[i] + 1, numbers[j] - 1));
+            }
+
+            i++;
+            j++;
+        }
+
+        return missingRanges;
     }
 }
