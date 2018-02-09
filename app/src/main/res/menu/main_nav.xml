@@ -5,5 +5,9 @@
             android:id="@+id/nav_missing_number"
             android:checked="true"
             android:title="@string/nav_missing_number_title"/>
+
+        <item
+            android:id="@+id/nav_dividing"
+            android:title="@string/nav_dividing_number_title"/>
     </group>
 </menu>

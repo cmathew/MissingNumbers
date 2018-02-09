@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, numberFragment).commit();
     }
 
+    private void navigateToDivision() {
+        DivisionFragment divisionFragment = DivisionFragment.newInstance();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, divisionFragment).commit();
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.isChecked()) {
@@ -90,6 +95,9 @@ public class MainActivity extends AppCompatActivity
 
         if (item.getItemId() == R.id.nav_missing_number) {
             navigateToMissingNumber();
+            return true;
+        } else if (item.getItemId() == R.id.nav_dividing) {
+            navigateToDivision();
             return true;
         }
 
