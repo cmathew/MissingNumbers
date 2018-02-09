@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MissingNumberFragment extends Fragment {
+    private static int RANGE_MIN = 0;
+    private static int RANGE_MAX = 100;
+
     private FrameLayout frameLayout;
     private EditText text;
     private Button gapButton;
@@ -40,6 +43,7 @@ public class MissingNumberFragment extends Fragment {
         this.gapButton = view.findViewById(R.id.determine_gaps_button);
         this.resultDisplay = view.findViewById(R.id.ranges_found_display);
 
+        gapButton.setText(getString(R.string.determine_gaps_button_text, RANGE_MIN, RANGE_MAX));
         gapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,19 +71,22 @@ public class MissingNumberFragment extends Fragment {
         List<String> missingRanges = new ArrayList<>();
 
         int[] numbers = parseInputNumbers();
-        int i = 0;
-        int j = 1;
-        while (i < numbers.length && j < numbers.length) {
+        for (int i = 0, j = 1; j < numbers.length; i++, j++) {
             // detect missing numbers
             int difference = numbers[j] - numbers[i];
-            if (difference == 2) {
-                missingRanges.add(String.format("%d", numbers[i] + 1));
-            } else if (difference > 2) {
-                missingRanges.add(String.format("%d -> %d", numbers[i] + 1, numbers[j] - 1));
+            if (difference < 2) {
+                continue;
             }
 
-            i++;
-            j++;
+            int smallestMissing = Math.max(RANGE_MIN, numbers[i] + 1);
+            int largestMissing = Math.min(RANGE_MAX, numbers[j] - 1);
+            int clampedDifference = largestMissing - smallestMissing;
+            if (clampedDifference == 0) {
+                // arbitrarily pick smallestMissing or largestMissing
+                missingRanges.add(String.format("%d", smallestMissing));
+            } else if (clampedDifference > 0) {
+                missingRanges.add(String.format("%d -> %d", smallestMissing, largestMissing));
+            }
         }
 
         return missingRanges;

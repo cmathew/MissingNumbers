@@ -4,7 +4,7 @@
     <string name="nav_missing_number_title">Missing numbers</string>
     <string name="integer_sequence_input">Enter integers (comma-separated)</string>
 
-    <string name="determine_gaps_button">Find Missing Ranges</string>
+    <string name="determine_gaps_button_text">Find missing between %d and %d</string>
     <string name="nav_open_content_desc">Open</string>
     <string name="nav_close_content_desc">Close</string>
 </resources>

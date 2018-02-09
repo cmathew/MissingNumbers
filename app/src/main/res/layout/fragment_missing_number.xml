@@ -15,8 +15,7 @@
     <Button
         android:id="@+id/determine_gaps_button"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/determine_gaps_button" />
+        android:layout_width="wrap_content" />
 
     <TextView
         android:id="@+id/ranges_found_display"
