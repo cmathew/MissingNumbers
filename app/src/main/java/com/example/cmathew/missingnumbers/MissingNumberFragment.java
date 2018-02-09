@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MissingNumberFragment extends Fragment {
     private static int RANGE_MIN = 0;
-    private static int RANGE_MAX = 100;
+    private static int RANGE_MAX = 10;
 
     private FrameLayout frameLayout;
     private EditText text;
@@ -71,19 +71,32 @@ public class MissingNumberFragment extends Fragment {
         List<String> missingRanges = new ArrayList<>();
 
         int[] numbers = parseInputNumbers();
-        for (int i = 0, j = 1; j < numbers.length; i++, j++) {
+        for (int i = 0, j = 1; i < numbers.length; i++, j++) {
+            // Last iteration is a special case. We pretend that there
+            // is a value of RANGE_MAX + 1 at the end of our data
+            int rangeMaxExclusive = (RANGE_MAX + 1);
+            int rangeUpperBound;
+            if (j >= numbers.length) {
+                rangeUpperBound = rangeMaxExclusive;
+            } else {
+                rangeUpperBound = Math.min(rangeMaxExclusive, numbers[j]);
+            }
+
             // detect missing numbers
-            int difference = numbers[j] - numbers[i];
-            if (difference < 2) {
+            int difference = rangeUpperBound - numbers[i];
+            if (difference == 1) {
                 continue;
             }
 
+            // At least one missing number is present.
+            // Find candidates for smallest and largest missing numbers
+            // that we care about
             int smallestMissing = Math.max(RANGE_MIN, numbers[i] + 1);
-            int largestMissing = Math.min(RANGE_MAX, numbers[j] - 1);
+            int largestMissing = rangeUpperBound - 1;
             int clampedDifference = largestMissing - smallestMissing;
             if (clampedDifference == 0) {
                 // arbitrarily pick smallestMissing or largestMissing
-                missingRanges.add(String.format("%d", smallestMissing));
+                missingRanges.add(String.valueOf(smallestMissing));
             } else if (clampedDifference > 0) {
                 missingRanges.add(String.format("%d -> %d", smallestMissing, largestMissing));
             }
