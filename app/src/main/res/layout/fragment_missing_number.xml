@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.cmathew.missingnumbers.MissingNumberFragment">
+
+    <EditText
+        android:id="@+id/sequence_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/integer_sequence_input"
+        android:text="-5, -1, 2, 3, 5, 9"/>
+
+    <Button
+        android:id="@+id/determine_gaps_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/determine_gaps_button" />
+
+    <TextView
+        android:id="@+id/ranges_found_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -22,6 +22,12 @@ allprojects {
     }
 }
 
+ext {
+    v4SupportLibVersion = '26.1.0'
+    v7SupportLibVersion = '26.1.0'
+    designSupportLibVersion = '26.1.0'
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
